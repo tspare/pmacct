@@ -1,0 +1,1 @@
+{"event_type": "purge", "peer_ip_src": "203.0.113.90", "mpls_vpn_rd": "2:4226809946:12", "mpls_vpn_rd_origin": "flow", "vrf_id": "1610612738", "ingress_vrf_name": "A2", "packets": 2, "bytes": 234}

@@ -1,0 +1,82 @@
+cfg_handlers.c:    else if (!strcmp(count_token, "ingress_vrf_name")) cfg_set_aggregate(filename, value, COUNT_INT_INGRESS_VRF_NAME, count_token);
+data.json:{"event_type": "purge", "peer_ip_src": "203.0.113.90", "mpls_vpn_rd": "0:0:0", "mpls_vpn_rd_origin": "flow", "vrf_id": "1610612736", "vrf_name": "", "packets": 1, "bytes": 98}
+data.json:{"event_type": "purge", "peer_ip_src": "203.0.113.90", "mpls_vpn_rd": "vrfid:33554656", "mpls_vpn_rd_origin": "flow", "vrf_id": "33554656", "vrf_name": "", "packets": 1, "bytes": 94}
+data.json:{"event_type": "purge", "peer_ip_src": "203.0.113.90", "mpls_vpn_rd": "vrfid:3707765197", "mpls_vpn_rd_origin": "flow", "vrf_id": "543524264", "vrf_name": "", "packets": -2816496889181346711, "bytes": 2253429367881793580}
+Binary file libdaemons_la-acct.o matches
+Binary file libdaemons_la-cfg.o matches
+Binary file libdaemons_la-cfg_handlers.o matches
+Binary file libdaemons_la-classifier.o matches
+Binary file libdaemons_la-conntrack.o matches
+Binary file libdaemons_la-imt_plugin.o matches
+Binary file libdaemons_la-ip_flow.o matches
+Binary file libdaemons_la-ip_frag.o matches
+Binary file libdaemons_la-ll.o matches
+Binary file libdaemons_la-net_aggr.o matches
+Binary file libdaemons_la-network.o matches
+Binary file libdaemons_la-nl.o matches
+Binary file libdaemons_la-pkt_handlers.o matches
+Binary file libdaemons_la-plugin_cmn_custom.o matches
+Binary file libdaemons_la-plugin_cmn_json.o matches
+Binary file libdaemons_la-plugin_common.o matches
+Binary file libdaemons_la-plugin_hooks.o matches
+Binary file libdaemons_la-pmacct-globals.o matches
+Binary file libdaemons_la-preprocess.o matches
+Binary file libdaemons_la-pretag.o matches
+Binary file libdaemons_la-pretag_handlers.o matches
+Binary file libdaemons_la-print_plugin.o matches
+Binary file libdaemons_la-server.o matches
+Binary file libdaemons_la-signals.o matches
+Binary file libdaemons_la-thread_pool.o matches
+Binary file libdaemons_la-util.o matches
+Binary file libdaemons_la-xflow_status.o matches
+network.h:  char ingress_vrf_name[MAX_VRF_NAME];
+network.h:  char ingress_vrf_name[MAX_VRF_NAME];
+Binary file nfacctd matches
+nfacctd.c:          void *ingress_vrf_name;
+nfacctd.c:          int vrf_name_len = tpl->fld[NF9_INGRESS_VRF_NAME].len[0];
+nfacctd.c:          if (!entry->vrf_name_map) {
+nfacctd.c:              entry->vrf_name_map = cdada_map_create(MAX_VRF_NAME); /* size of vrf-name */
+nfacctd.c:              if (!entry->vrf_name_map) {
+nfacctd.c:                Log(LOG_ERR, "ERROR ( %s/core ): Unable to allocate entry->vrf_name_map. Exiting.\n", config.name);
+nfacctd.c:          ingress_vrf_name = malloc(tpl->fld[NF9_INGRESS_VRF_NAME].len[0]);
+nfacctd.c:          if (!ingress_vrf_name) {
+nfacctd.c:            Log(LOG_ERR, "ERROR ( %s/core ): Unable to malloc ingress_vrf_name. Exiting.\n", config.name);
+nfacctd.c:          memcpy(ingress_vrf_name, pkt+tpl->fld[NF9_INGRESS_VRF_NAME].off[0],
+nfacctd.c:          Log(LOG_DEBUG, "DEBUG ( %s ): ingress_vrfid %d, vrf_name %s\n", "insert ingress vrf name", ingress_vrfid, (char *) ingress_vrf_name );
+nfacctd.c:          ret = cdada_map_insert(entry->vrf_name_map, &ingress_vrfid, ingress_vrf_name);
+nfacctd.c:            Log(LOG_ERR, "ERROR ( %s/core ): Unable to insert in entry->vrf_name_map. Exiting.\n", config.name);
+nfacctd.c:      char *vrf_name;
+nfacctd.c:      ret = cdada_map_find(entry->vrf_name_map, &ingress_vrfid, (void **) &vrf_name);
+nfacctd.c:        Log(LOG_DEBUG, "DEBUG ( %s ): name %s\n", "found VRF Name", vrf_name);
+nfacctd.c:        memcpy (pptrs->ingress_vrf_name, vrf_name, MAX_VRF_NAME);
+nfacctd.conf:aggregate[data]: peer_src_ip, mpls_vpn_rd, vrf_id, vrf_name 
+nfacctd.conf.save:aggregate[option_vrf]: peer_src_ip, vrf_id, vrf_name
+nfacctd.conf.save:aggregate[data]: peer_src_ip, mpls_vpn_rd, vrf_name 
+Binary file nfacctd.o matches
+pkt_handlers.c:        channels_list[index].phandler[primitives] = NF_ingress_vrf_name_handler;
+pkt_handlers.c:void NF_ingress_vrf_name_handler(struct channels_list_entry *chptr, struct packet_ptrs *pptrs, char **data)
+pkt_handlers.c:    memcpy(&pbgp->ingress_vrf_name, &pptrs->ingress_vrf_name, MAX_VRF_NAME); 
+pkt_handlers.h:extern void NF_ingress_vrf_name_handler(struct channels_list_entry *, struct packet_ptrs *, char **);
+plugin_cmn_json.c:    cjhandler[idx] = compose_json_ingress_vrf_name;
+plugin_cmn_json.c:void compose_json_ingress_vrf_name(json_t *obj, struct chained_cache *cc) 
+plugin_cmn_json.c:  char vrf_name_str[MAX_VRF_NAME];
+plugin_cmn_json.c:  memcpy(vrf_name_str, cc->pbgp->ingress_vrf_name, MAX_VRF_NAME);
+plugin_cmn_json.c:  json_object_set_new_nocheck(obj, "ingress_vrf_name", json_string(vrf_name_str));
+plugin_cmn_json.h:extern void compose_json_ingress_vrf_name(json_t *, struct chained_cache *);
+Binary file pmacct matches
+Binary file pmacct.o matches
+Binary file pmacctd matches
+Binary file pmacctd.o matches
+Binary file pmbgpd matches
+Binary file pmbgpd.o matches
+Binary file pmbmpd matches
+Binary file pmbmpd.o matches
+Binary file pmtelemetryd matches
+Binary file pmtelemetryd.o matches
+primitives.lst:name=vrf_name	field_type=236	len=32		semantics=str
+Binary file sfacctd matches
+Binary file sfacctd.o matches
+Binary file sflow.o matches
+test.log:DEBUG: [nfacctd.conf] aggregate[option_vrf]:peer_src_ip, vrf_id, vrf_name
+test.log:DEBUG ( default/core ): Custom primitive 'vrf_name': type=ffff000000000002 off=4 len=32
+xflow_status.h:  cdada_map_t *vrf_name_map; /* **CPAN** hash map for vrf name */

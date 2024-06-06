@@ -1,0 +1,12 @@
+aggregate_primitives: primitives.lst
+pre_tag_map: pretag.map
+plugins: print[option_vrf], print[data]
+pre_tag_filter[option_vrf]: 100
+aggregate[option_vrf]: peer_src_ip, vrf_id, vrf_name
+print_output[option_vrf]: json
+print_output_file[option_vrf]: option_vrf.json
+pre_tag_filter[data]: 200
+aggregate[data]: peer_src_ip, mpls_vpn_rd, vrf_name 
+print_output[data]: json
+print_output_file[data]: data.json
+nfacctd_account_options: true

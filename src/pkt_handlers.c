@@ -513,6 +513,15 @@ void evaluate_packet_handlers()
       }
     }
 
+    if (channels_list[index].aggregation_3 & COUNT_INGRESS_VRF_NAME) {
+
+      if (config.acct_type == ACCT_NF) {
+        channels_list[index].phandler[primitives] = NF_ingress_vrf_name_handler;
+        primitives++;
+      }
+
+    }
+
     if (channels_list[index].aggregation & COUNT_MPLS_VPN_RD) {
 
       if (config.acct_type == ACCT_NF) {
@@ -2038,6 +2047,16 @@ void NF_mpls_vpn_rd_handler(struct channels_list_entry *chptr, struct packet_ptr
   if (pbgp && pptrs->bitr) {
     /* RD_ORIGIN is already set in nfacctd.c */
     memcpy(&pbgp->mpls_vpn_rd, &pptrs->bitr, sizeof(rd_t)); 
+  }
+}
+
+void NF_ingress_vrf_name_handler(struct channels_list_entry *chptr, struct packet_ptrs *pptrs, char **data)
+{
+  struct pkt_bgp_primitives *pbgp = (struct pkt_bgp_primitives *) ((*data) + chptr->extras.off_pkt_bgp_primitives);
+
+  if (pbgp && pptrs->bitr) {
+    /* RD_ORIGIN is already set in nfacctd.c */
+    memcpy(&pbgp->ingress_vrf_name, &pptrs->ingress_vrf_name, MAX_VRF_NAME); 
   }
 }
 

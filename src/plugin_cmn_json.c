@@ -596,6 +596,11 @@ void compose_json(u_int64_t wtc, u_int64_t wtc_2, u_int64_t wtc_3)
     idx++;
   }
 
+  if (wtc_3 & COUNT_INGRESS_VRF_NAME) {
+    cjhandler[idx] = compose_json_ingress_vrf_name;
+    idx++;
+  }
+
   cjhandler[idx] = compose_json_counters;
 }
 
@@ -922,6 +927,14 @@ void compose_json_mpls_vpn_rd(json_t *obj, struct chained_cache *cc)
   bgp_rd2str(rd_str, &cc->pbgp->mpls_vpn_rd);
   json_object_set_new_nocheck(obj, "mpls_vpn_rd", json_string(rd_str));
   json_object_set_new_nocheck(obj, "mpls_vpn_rd_origin", json_string(bgp_rd_origin_print(cc->pbgp->mpls_vpn_rd.type)));
+}
+
+void compose_json_ingress_vrf_name(json_t *obj, struct chained_cache *cc) 
+{
+  char vrf_name_str[MAX_VRF_NAME];
+
+  memcpy(vrf_name_str, cc->pbgp->ingress_vrf_name, MAX_VRF_NAME);
+  json_object_set_new_nocheck(obj, "ingress_vrf_name", json_string(vrf_name_str));
 }
 
 void compose_json_mpls_pw_id(json_t *obj, struct chained_cache *cc)

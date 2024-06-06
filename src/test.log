@@ -1,0 +1,68 @@
+cpan@B09S9C22 src % ./nfacctd -I test.pcap -f nfacctd.conf -d
+DEBUG: [nfacctd.conf] plugin name/type: 'default'/'core'.
+DEBUG: [nfacctd.conf] plugin name/type: 'option_vrf'/'print'.
+DEBUG: [nfacctd.conf] aggregate_primitives:primitives.lst
+DEBUG: [nfacctd.conf] pre_tag_map:pretag.map
+DEBUG: [nfacctd.conf] pre_tag_filter[option_vrf]:100
+DEBUG: [nfacctd.conf] aggregate[option_vrf]:peer_src_ip, vrf_id, vrf_name
+DEBUG: [nfacctd.conf] print_output[option_vrf]:json
+DEBUG: [nfacctd.conf] print_output_file[option_vrf]:option_vrf.json
+DEBUG: [nfacctd.conf] pcap_savefile:test.pcap
+DEBUG: [nfacctd.conf] debug:true
+INFO ( default/core ): NetFlow Accounting Daemon, nfacctd 1.7.10-git (20240506-1 (35c460d9))
+INFO ( default/core ):  '--enable-jansson' '--enable-l2' '--enable-traffic-bins' '--enable-bgp-bins' '--enable-bmp-bins' '--enable-st-bins'
+INFO ( default/core ): Reading configuration file '/Users/cpan/pmacct/src/nfacctd.conf'.
+INFO ( default/core ): [primitives.lst] (re)loading map.
+INFO ( default/core ): [primitives.lst] map successfully (re)loaded.
+DEBUG ( default/core ): Custom primitive 'vrf_id': type=ffff000000000001 off=0 len=4
+DEBUG ( default/core ): Custom primitive 'vrf_name': type=ffff000000000002 off=4 len=32
+INFO ( option_vrf/print ): plugin_pipe_size=4096000 bytes plugin_buffer_size=10240 bytes
+INFO ( option_vrf/print ): ctrl channel: obtained=3200 bytes target=3200 bytes
+INFO ( default/core ): [pretag.map] (re)loading map.
+INFO ( default/core ): [pretag.map] map successfully (re)loaded.
+INFO ( default/core ): [pretag.map] (re)loading map.
+INFO ( default/core ): [pretag.map] map successfully (re)loaded.
+INFO ( default/core ): reading NetFlow/IPFIX data from: test.pcap
+INFO ( option_vrf/print ): cache entries=16411 base cache memory=56322552 bytes
+INFO ( option_vrf/print ): JSON: setting object handlers.
+DEBUG ( default/core ): Received NetFlow/IPFIX packet from [203.0.113.90:51730] version [10] seqno [118305]
+DEBUG ( default/core ): Processing NetFlow/IPFIX flowset [3] from [203.0.113.90:51730] seqno [118305]
+DEBUG ( default/core ): NfV10 agent         : 203.0.113.90:33312
+DEBUG ( default/core ): NfV10 template type : options
+DEBUG ( default/core ): NfV10 template ID   : 334
+DEBUG ( default/core ): -------------------------------------------------------------
+DEBUG ( default/core ): |    pen     |         field type         | offset |  size  |
+DEBUG ( default/core ): | 0          | 234                [234  ] |      0 |      4 |
+DEBUG ( default/core ): | 0          | 236                [236  ] |      4 |     32 |
+DEBUG ( default/core ): | 0          | 234                [234  ] |     36 |      4 |
+DEBUG ( default/core ): | 0          | 235                [235  ] |     40 |      4 |
+DEBUG ( default/core ): | 0          | 90                 [90   ] |     44 |      8 |
+DEBUG ( default/core ): -------------------------------------------------------------
+DEBUG ( default/core ): Netflow V9/IPFIX record size : 52
+DEBUG ( default/core ): 
+DEBUG ( default/core ): Received NetFlow/IPFIX packet from [203.0.113.90:51730] version [10] seqno [118305]
+DEBUG ( default/core ): Processing NetFlow/IPFIX flowset [334] from [203.0.113.90:51730] seqno [118305]
+DEBUG ( default/core ): Received NetFlow/IPFIX packet from [203.0.113.90:51730] version [10] seqno [118305]
+DEBUG ( default/core ): Processing NetFlow/IPFIX flowset [3] from [203.0.113.90:51730] seqno [118305]
+DEBUG ( default/core ): NfV10 agent         : 203.0.113.90:33312
+DEBUG ( default/core ): NfV10 template type : options
+DEBUG ( default/core ): NfV10 template ID   : 334
+DEBUG ( default/core ): -------------------------------------------------------------
+DEBUG ( default/core ): |    pen     |         field type         | offset |  size  |
+DEBUG ( default/core ): | 0          | 234                [234  ] |      0 |      4 |
+DEBUG ( default/core ): | 0          | 236                [236  ] |      4 |     32 |
+DEBUG ( default/core ): | 0          | 234                [234  ] |     36 |      4 |
+DEBUG ( default/core ): | 0          | 235                [235  ] |     40 |      4 |
+DEBUG ( default/core ): | 0          | 90                 [90   ] |     44 |      8 |
+DEBUG ( default/core ): -------------------------------------------------------------
+DEBUG ( default/core ): Netflow V9/IPFIX record size : 52
+DEBUG ( default/core ): 
+DEBUG ( default/core ): Received NetFlow/IPFIX packet from [203.0.113.90:51730] version [10] seqno [118305]
+DEBUG ( default/core ): Processing NetFlow/IPFIX flowset [334] from [203.0.113.90:51730] seqno [118305]
+INFO ( option_vrf/print ): *** Purging cache - START (PID: 90063) ***
+INFO ( option_vrf/print ): *** Purging cache - END (PID: 90063, QN: 0/0, ET: X) ***
+INFO ( default/core ): OK, Exiting ...
+
+cpan@B09S9C22 src % ls *.json
+zsh: no matches found: *.json
+

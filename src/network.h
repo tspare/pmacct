@@ -29,6 +29,8 @@
 #include "../include/ip6.h"
 #include "../include/ah.h"
 
+
+
 #ifndef IN6_IS_ADDR_V4MAPPED
 #define IN6_IS_ADDR_V4MAPPED(a) \
         ((((__const uint32_t *) (a))[0] == 0)                                 \
@@ -267,6 +269,10 @@ typedef u_int8_t safi_t;
 
 #define RD_ORIGIN_FUNC_TYPE_MAX 2
 
+#ifndef MAX_VRF_NAME
+#define MAX_VRF_NAME            32
+#endif
+
 struct rd_as
 {
   u_int16_t type;
@@ -383,6 +389,7 @@ struct packet_ptrs {
   u_int8_t renormalized; /* Is it renormalized yet ? */
   u_char *pkt_data_ptrs[CUSTOM_PRIMITIVE_MAX_PPTRS_IDX]; /* indexed packet pointers */
   u_int16_t pkt_proto[CUSTOM_PRIMITIVE_MAX_PPTRS_IDX]; /* indexed packet protocols */
+  char ingress_vrf_name[MAX_VRF_NAME];
 #if defined (WITH_GEOIPV2)
   MMDB_lookup_result_s geoipv2_src;
   MMDB_lookup_result_s geoipv2_dst;
@@ -516,6 +523,7 @@ struct pkt_stitching {
 #endif
 #define MAX_BGP_ASPATH          128
 
+
 /* MPLS */
 #define MAX_MPLS_LABELS         10
 #define MAX_MPLS_LABEL_LEN      16
@@ -563,6 +571,7 @@ struct pkt_bgp_primitives {
   u_int32_t mpls_pw_id;
   u_int8_t src_roa;
   u_int8_t dst_roa;
+  char ingress_vrf_name[MAX_VRF_NAME];
 };
 
 struct pkt_legacy_bgp_primitives {
