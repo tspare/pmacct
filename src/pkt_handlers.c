@@ -2053,11 +2053,12 @@ void NF_mpls_vpn_rd_handler(struct channels_list_entry *chptr, struct packet_ptr
 void NF_ingress_vrf_name_handler(struct channels_list_entry *chptr, struct packet_ptrs *pptrs, char **data)
 {
   struct pkt_bgp_primitives *pbgp = (struct pkt_bgp_primitives *) ((*data) + chptr->extras.off_pkt_bgp_primitives);
-
+/*
   if (pbgp && pptrs->bitr) {
     /* RD_ORIGIN is already set in nfacctd.c */
     memcpy(&pbgp->ingress_vrf_name, &pptrs->ingress_vrf_name, MAX_VRF_NAME); 
   }
+*/
 }
 
 void timestamp_start_handler(struct channels_list_entry *chptr, struct packet_ptrs *pptrs, char **data)
